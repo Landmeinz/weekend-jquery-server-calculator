@@ -9,7 +9,7 @@ function onReady(){
     // get data
 
     // EQUAL this will be the function will POST the data to the server;
-    $(`#equalsButton`).on(`click`, equalsButton)
+    $(`#equalsButton`).on(`click`, postData)
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     $(`#clearButton`).on(`click`, clearButton)
@@ -17,16 +17,6 @@ function onReady(){
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     $(`button`).on(`click`, currentButtonSelection)
 }
-
-// the equals button will call this function to post the calculated data; input1 operator input2; 
-function postDisplayData(){
-    console.log(`input data POSTED`);
-}
-
-function getDisplayData(){
-    console.log(`the big reveal`);
-}
-
 
 
 
@@ -58,16 +48,14 @@ function divideButton(){
 
 
 
-
+let selectedOperator = ``;
 function currentButtonSelection(){
     let currentButton = ``;
     console.log(currentButton = `clicked on:`, $(this).val());
-    return currentButton;
-
+    selectedOperator = $(`.operator-button`).val();
+    console.log(`selected operator`, selectedOperator);
+    return selectedOperator;
 }
-
-
-
 
 
 // GET DATA from the server; 
@@ -84,26 +72,25 @@ function getData(){
 }
 
 // POST DATA to the server side with this function;
-function equalsButton(){
-
-
+function postData(){
     // post input data to the server; 
-    // $.ajax({
-    //     method: `POST`,
-    //     url: `/data`,
-    //     data: 
-    //     {
-    //         "inputOne": $(`#inputOne`).val(),
-    //         "operator": currentButtonSelection,
-    //         "inputTwo": $(`#inputTwo`).val()
-    //     }
-    // }).then(function(response){
-    //     console.log(`POST SENT`, response);
-    //     // getData();
-    // }).catch(function(){
-    //     alert(`POST FAILED`, response);
-    // });
+    $.ajax({
+        method: `POST`,
+        url: `/data`,
+        data: 
+        {
+            "inputOne": $(`#inputOne`).val(),
+            "operator": selectedOperator,
+            "inputTwo": $(`#inputTwo`).val()
+        }
+    }).then(function(response){
+        console.log(`POST SENT`, response);
+        getData();
+    }).catch(function(){
+        alert(`POST FAILED`, response);
+    });
 }
+
 
 function clearButton(){
     $(`#inputOne`).val(``)
@@ -112,12 +99,10 @@ function clearButton(){
 
 
 
-
-
 // RENDER the data to the DOM; 
 
-function render(){
-    console.log(`render to the DOM`);
+function render(data){
+    console.log(`render to the DOM current data:`, data);
 }
 
 // inputOne

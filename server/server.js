@@ -10,26 +10,37 @@ app.use(bodyParser.urlencoded({extended:true}))
 // Server sends out static files (HTML, CSS, Client JS)
 app.use(express.static('server/public'));
 
-app.listen(PORT, () => {
-  console.log ('Server is running on port', PORT)
-})
+
 
 // GET & POST Routes go here;
 
-let data = 
+let data =
     {
         "inputOne": ``,
         "operator": ``,
-        "inputTwo": ``,
-    }
+        "inputTwo": ``
+}
 
-console.log(`current data:`, data);
+let historyArray = [];
 
-app.get(`/data`), (req, res) => {
+console.log(`current server side data:`, data);
+
+app.get(`/data`, (req, res) => {
     res.send(data);
-}
+})
 
-app.post(`/data`), (req, res) => {
+
+app.post(`/data`, (req, res) => {
     console.log(`this the data req.body`, req.body);
-    
-}
+    data = req.body;
+
+    historyArray.push(data);
+    console.log(historyArray);
+
+    res.sendStatus(201)
+})
+
+
+app.listen(PORT, () => {
+    console.log ('Server is running on port', PORT)
+  })
