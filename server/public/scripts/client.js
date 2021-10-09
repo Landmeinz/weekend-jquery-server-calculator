@@ -4,69 +4,120 @@ $(onReady);
 
 function onReady(){
     console.log('jq connected');
-    $(`#plusButton`).on(`click`, plusButton)
-    $(`#minusButton`).on(`click`, minusButton)
-    $(`#multiplyButton`).on(`click`, multiplyButton)
-    $(`#divideButton`).on(`click`, divideButton)
+
+    // post data
+    // get data
+
+    // EQUAL this will be the function will POST the data to the server;
     $(`#equalsButton`).on(`click`, equalsButton)
+
+    // CLEAR button set; only needs to clear the client side DOM inputs; 
     $(`#clearButton`).on(`click`, clearButton)
+
+    // CLEAR button set; only needs to clear the client side DOM inputs; 
+    $(`button`).on(`click`, currentButtonSelection)
 }
 
-// 
-function getDisplayData(){
-    console.log(`the big reveal`);
-}
-
+// the equals button will call this function to post the calculated data; input1 operator input2; 
 function postDisplayData(){
     console.log(`input data POSTED`);
 }
 
+function getDisplayData(){
+    console.log(`the big reveal`);
+}
 
 
 
+
+// BUTTONS are found here
 
 function plusButton(){
     // buttonValue typeof === string
     let buttonValue = $(`#plusButton`).val()
-    console.log(`clicked on the ${buttonValue} button`);
-    
-    // post first input and the selected operator to the server data;
-    // get data and render data to dom;
-        // history display; 
+    // console.log(`clicked on the ${buttonValue} button`);
 }
 
 function minusButton(){
     let buttonValue = $(`#minusButton`).val()
-    console.log(`clicked on the ${buttonValue} button`);
+    // console.log(`clicked on the ${buttonValue} button`);
+    // $(`#minusButton`).toggleClass("selected");
 }
 
 function multiplyButton(){
     let buttonValue = $(`#multiplyButton`).val()
-    console.log(`clicked on the ${buttonValue} button`);
+    // console.log(`clicked on the ${buttonValue} button`);
+    // $(`#multiplyButton`).toggleClass("selected");
 }
 
 function divideButton(){
     let buttonValue = $(`#divideButton`).val()
-    console.log(`clicked on the ${buttonValue} button`);
+    // console.log(`clicked on the ${buttonValue} button`);
+    // $(`#divideButton`).toggleClass("selected");
 }
 
+
+
+
+function currentButtonSelection(){
+    let currentButton = ``;
+    console.log(currentButton = `clicked on:`, $(this).val());
+    return currentButton;
+
+}
+
+
+
+
+
+// GET DATA from the server; 
+function getData(){
+    $.ajax({
+        method: `GET`,
+        url: `/data`
+    }).then(function(response){
+        console.log(`successful getData`, response);
+        // render()
+    }).catch(function(response){
+        alert(`failed getData`);
+    })
+}
+
+// POST DATA to the server side with this function;
 function equalsButton(){
-    let buttonValue = $(`#equalsButton`).val()
-    console.log(`clicked on the ${buttonValue} button`);
-    // this function needs to actually calculate the inputs with the operator; 
+
+
+    // post input data to the server; 
+    // $.ajax({
+    //     method: `POST`,
+    //     url: `/data`,
+    //     data: 
+    //     {
+    //         "inputOne": $(`#inputOne`).val(),
+    //         "operator": currentButtonSelection,
+    //         "inputTwo": $(`#inputTwo`).val()
+    //     }
+    // }).then(function(response){
+    //     console.log(`POST SENT`, response);
+    //     // getData();
+    // }).catch(function(){
+    //     alert(`POST FAILED`, response);
+    // });
 }
 
 function clearButton(){
-    let buttonValue = $(`#clearButton`).val()
-    console.log(`clicked on the ${buttonValue} button`);
     $(`#inputOne`).val(``)
     $(`#inputTwo`).val(``)
 }
 
 
 
+
+
+// RENDER the data to the DOM; 
+
 function render(){
-    console.log(`you clicked on the * button`);
+    console.log(`render to the DOM`);
 }
 
 // inputOne

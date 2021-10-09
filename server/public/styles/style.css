@@ -1,5 +1,18 @@
 /* dark mode */
-*{
+/* *{
     background-color: black;
     color: white;
+} */
+
+button {
+    background-color: white;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: darkred;
+}
+
+.selected {
+    background-color: darkred;
 }

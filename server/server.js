@@ -16,9 +16,20 @@ app.listen(PORT, () => {
 
 // GET & POST Routes go here;
 
-// let data = [
-//     {
-//         key: value;
-//     }
-// ]
+let data = 
+    {
+        "inputOne": ``,
+        "operator": ``,
+        "inputTwo": ``,
+    }
 
+console.log(`current data:`, data);
+
+app.get(`/data`), (req, res) => {
+    res.send(data);
+}
+
+app.post(`/data`), (req, res) => {
+    console.log(`this the data req.body`, req.body);
+    
+}
