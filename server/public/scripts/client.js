@@ -22,31 +22,45 @@ function postDisplayData(){
 }
 
 
+
+
+
 function plusButton(){
-    console.log(`you clicked on the + button`);
-    // post input to data;
-    // get and render data to dom;
+    // buttonValue typeof === string
+    let buttonValue = $(`#plusButton`).val()
+    console.log(`clicked on the ${buttonValue} button`);
+    
+    // post first input and the selected operator to the server data;
+    // get data and render data to dom;
         // history display; 
 }
 
 function minusButton(){
-    console.log(`clicked on the - button`);
+    let buttonValue = $(`#minusButton`).val()
+    console.log(`clicked on the ${buttonValue} button`);
 }
 
 function multiplyButton(){
-    console.log(`clicked on the * button`);
+    let buttonValue = $(`#multiplyButton`).val()
+    console.log(`clicked on the ${buttonValue} button`);
 }
 
 function divideButton(){
-    console.log(`clicked on the / button`);
+    let buttonValue = $(`#divideButton`).val()
+    console.log(`clicked on the ${buttonValue} button`);
 }
 
 function equalsButton(){
-    console.log(`clicked on the = button`);
+    let buttonValue = $(`#equalsButton`).val()
+    console.log(`clicked on the ${buttonValue} button`);
+    // this function needs to actually calculate the inputs with the operator; 
 }
 
 function clearButton(){
-    console.log(`clicked on the CLEAR button`);
+    let buttonValue = $(`#clearButton`).val()
+    console.log(`clicked on the ${buttonValue} button`);
+    $(`#inputOne`).val(``)
+    $(`#inputTwo`).val(``)
 }
 
 
