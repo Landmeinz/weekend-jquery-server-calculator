@@ -14,14 +14,9 @@ app.use(express.static('server/public'));
 
 // GET & POST Routes go here;
 
-let data =
-    {
-        "inputOne": ``,
-        "operator": ``,
-        "inputTwo": ``
-}
+let historyArray = require(`./modules/historyArray.js`);
+let data = require(`./modules/data.js`);
 
-let historyArray = [];
 
 console.log(`current server side data:`, data);
 
@@ -38,6 +33,11 @@ app.post(`/data`, (req, res) => {
     console.log(historyArray);
 
     res.sendStatus(201)
+})
+
+
+app.get(`/historyArray`, (req, res) => {
+    res.send(historyArray);
 })
 
 
