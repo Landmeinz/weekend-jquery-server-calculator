@@ -16,6 +16,7 @@ function onReady(){
     $(`.operator`).on(`click`, currentOperatorSelection);
     $(`.operator`).on(`click`, depressedOperatorButton);
     $(`.btn`).on(`click`, currentNumberInput);
+    $(`.dot`).on(`click`, displayDot);
     // $(`.double-span`).on(`click`, currentNumberInput);
     $(`#backButton`).on(`click`, deleteLastNumber);
     // CLEAR button set; only needs to clear the client side DOM inputs; 
@@ -73,26 +74,42 @@ function currentOperatorSelection(){
 }
 
 
+// running list of the numbers and operators pressed; 
 let recordClicks = '';
 function currentNumberInput(){
     let currentNumber = $(this).text();
-    $(`#calcDisplay`).text(currentNumber)
 
-    recordClicks += currentNumber;
-
-
-    $(`#calcDisplay`).text(recordClicks)
-
-    // console.log(`--- recordClicks:`, recordClicks);
-    // console.log(`clicked on:`, currentNumber);
-    // console.log(`selected operator`, selectedOperator);
-    // return currentNumber;
+    if(currentNumber != `.`){
+        $(`#calcDisplay`).text(currentNumber)
+        recordClicks += currentNumber;
+        $(`#calcDisplay`).text(recordClicks)
+    }
 }
 
-function deleteLastInput(){
-    // $(`#backButton`).text(currentNumber)
-    recordClicks = text.slice(0, -1);
+
+// only allow one . on the display at a time; need to BUG fix allowing for a second . after the operator; so we can run 12.5 * 3.5; 
+function displayDot(){
+    if(recordClicks.length === 0){
+        recordClicks = `0.`;
+    } else if(recordClicks.indexOf(".") == -1){
+        recordClicks = recordClicks+= `.`;
+    }
 }
+
+
+function clearDisplay(){
+    $(`#calcDisplay`).text(``)
+    recordClicks = '';
+    $(`.operator`).removeClass(`pressed`)
+}
+
+// delete last input number; i'll come back to this if i have time; 
+function deleteLastNumber(){
+    console.log(`log of delete last number`);
+    console.log(recordClicks);
+    recordClicks = recordClicks.slice(0, -1);
+}
+
 
 
 
@@ -147,6 +164,16 @@ function postData(){
     if($(`#inputOne`).val() === '' || $(`#inputTwo`).val() === '' ){
         return alert(`provide inputs to calculate an answer`)
     }
+
+    // get index of the selectedOperator so that we can slice recordClicks on both sides; 
+    let opIndex = recordClicks.indexOf(selectedOperator);
+    // inputOne will be everything before the operator button push;
+    inputOne = recordClicks.slice(0, opIndex);
+    console.log(`--- this is inputOne:`, inputOne);
+    // inputTwo will be everything after operator and before the equals button push; 
+    inputTwo = recordClicks.slice(opIndex+1, recordClicks.length);
+    console.log(`--- this is inputTwo:`, inputTwo);
+
     // post input data to the server; 
     $.ajax({
         method: `POST`,
@@ -165,7 +192,7 @@ function postData(){
     }).then(function(response){
         console.log(`POST SENT`, response);
         getData();
-        // clearDisplay();
+        $(`.operator`).removeClass(`pressed`)
     }).catch(function(){
         clearInputs();
         alert(`POST FAILED!`);
@@ -188,14 +215,6 @@ function getHistoryArray(){
 
 
 
-function clearDisplay(){
-    $(`#calcDisplay`).text(``)
-    recordClicks = '';
-}
-
-function deleteLastNumber(){
-    console.log(`log of delete last number`);
-}
 
 
 
