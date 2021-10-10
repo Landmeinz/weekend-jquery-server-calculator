@@ -18,7 +18,7 @@ function onReady(){
     $(`.btn`).on(`click`, currentNumberInput);
     $(`.dot`).on(`click`, displayDot);
     // $(`.double-span`).on(`click`, currentNumberInput);
-    $(`#backButton`).on(`click`, deleteLastNumber);
+    // $(`#backButton`).on(`click`, deleteLastNumber);
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     $(`#clearButton`).on(`click`, clearDisplay)
 
@@ -104,11 +104,11 @@ function clearDisplay(){
 }
 
 // delete last input number; i'll come back to this if i have time; 
-function deleteLastNumber(){
-    console.log(`log of delete last number`);
-    console.log(recordClicks);
-    recordClicks = recordClicks.slice(0, -1);
-}
+// function deleteLastNumber(){
+//     console.log(`log of delete last number`);
+//     console.log(recordClicks);
+//     recordClicks = recordClicks.slice(0, -1);
+// }
 
 
 
@@ -252,7 +252,8 @@ function render(historyArray){
     calcDisplay.empty();
 
     for(let item of historyArray){
-        let displayResult = `${item.result}`;
+        console.log(`items of historyArray`, item);
+        let displayResult = `${historyArray[0].result}`;
         calcDisplay.text(displayResult);
         let listItem = ``
         listItem = `<p>${item.inputOne} ${item.operator} ${item.inputTwo} = ${item.result}</p>`;
