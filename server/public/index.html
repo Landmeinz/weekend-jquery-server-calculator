@@ -16,17 +16,35 @@
 
     <h1>Server Side Calculator</h1>
 
-    <input id="inputOne" placeholder="enter value" type="number">
+    <!-- <input id="inputOne" placeholder="enter value" type="number"> -->
+    <!-- <input id="inputTwo" placeholder="enter value"type="number"> -->
+    <div class="button-container">
+        <div class="display">DUMMY TEXT 234</div>
+        <button class="operator-button" id="backButton">BACK</button>
 
-    <button class="operator-button" id="plusButton" value="+"> + </button>
-    <button class="operator-button" id="minusButton" value="-"> - </button>
-    <button class="operator-button" id="multiplyButton" value="*"> * </button>
-    <button class="operator-button" id="divideButton" value="/"> / </button>
+        <button id="clearButton" value="CLEAR">CLR</button>
+        <button id="equalsButton" value="=">=</button>
 
-    <input id="inputTwo" placeholder="enter value"type="number">
+        <button class="number-button" id="sevenButton"> 7 </button>
+        <button class="number-button" id="eightButton"> 8 </button>
+        <button class="number-button" id="nineButton"> 9 </button>
+        <button class="operator-button" id="plusButton"> + </button>
 
-    <button id="equalsButton" value="=">=</button>
-    <button id="clearButton" value="CLEAR">CLR</button>
+        <button class="number-button" id="fourButton"> 4 </button>
+        <button class="number-button" id="fiveButton"> 5 </button>
+        <button class="number-button" id="sixButton"> 6 </button>
+        <button class="operator-button" id="minusButton"> - </button>
+        
+        <button class="number-button" id="oneButton"> 1 </button>
+        <button class="number-button" id="twoButton"> 2 </button>
+        <button class="number-button" id="threeButton"> 3 </button>
+        <button class="operator-button" id="multiplyButton"> * </button>
+        
+        <button class="number-button" id="zeroButton"> 0 </button>
+        <button class="number-button" id="decimalButton"> . </button>
+        <button class="operator-button" id="divideButton"> / </button>
+
+    </div>
 
     <h2>total: <span id="calcDisplay"></span></h2>
 

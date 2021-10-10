@@ -4,6 +4,14 @@
     color: white;
 } */
 
+/* .not-selected {
+    background-color: white;
+}
+
+.selected {
+    background-color: darkred;
+} */
+
 button {
     background-color: white;
 }
@@ -13,10 +21,8 @@ button:hover {
     background-color: darkred;
 }
 
-/* .not-selected {
-    background-color: white;
+.button-container {
+    display: grid;
+    
 }
 
-.selected {
-    background-color: darkred;
-} */
