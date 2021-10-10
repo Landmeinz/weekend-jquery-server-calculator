@@ -1,119 +1,136 @@
-/* dark mode */
 *{
-    /* background-color: black;
-    color: white; */
     font-family: sans-serif;
 }
 
-/* .not-selected {
-    background-color: white;
-}
-
-.selected {
-    background-color: darkred;
-} */
-
-
+/* color variables / box shadows / general sizes */
 :root {
     --button-size: 50px;
-}
+    --border-radius-body: 20px;
+    --border-radius-button: 12px;
+    --border-radius-display: 15px;
+    --grid-gap: 6px; 
 
-h1 {
-    font-size: 1.35rem;
-    text-align: center;
-    color: lightgray;
+    --color-background: hsla(358, 100%, 95%, 1);
+    --color-buttons-operator: hsla(55, 77%, 47%, .9);
+    --color-buttons-number: hsla(205, 50%, 70%, .9);
+    --color-calc-body: hsla(0, 0%, 100%, .9);
+    --color-on-hover: hsla(358, 100%, 55%, 1);
+    --color-on-pressed: hsla(358, 100%, 40%, 1);
+    --color-display: hsla(205, 15%, 85%, .5);
+    --color-history: hsla(205, 15%, 15%, .9);
+
+    --box-shadow-calc-body:  hsla(0, 0%, 0%, 0.4) 0px 2px 4px,
+                             hsl(0, 0%, 0%) 0px 7px 13px -3px, 
+                             hsla(0, 0%, 0%, 0.2) 0px -3px 0px inset;
+
+    --box-shadow-button:    hsla(0, 0%, 0%, 0.55) 0px 2px 2px;
+
+    --box-shadow-display:   hsl(208, 38%, 80%) 3px 3px 6px 0px inset, 
+                            hsla(0, 0%, 100%, 0.95) -3px -3px 6px 1px inset;
 }
 
 body {
+    background-color: var(--color-background);
     display: grid;
     justify-content: center;
     align-items: center;
-    background-color: hsla(210, 50%, 50%, 1);
 }
 
 .calculator-body{
+    background-color: var(--color-calc-body);
     width: 250px;
     display: grid;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid blue; */
-    border-radius: 22px;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 1) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    border-radius: var(--border-radius-body);
+    box-shadow: var(--box-shadow-calc-body);
     margin: 15% 0 0 0;
-    background-color: white;
 }
 
 .button-container {
     display: grid;
-    grid-gap: 6px;
     grid-template-columns: repeat(4, var(--button-size));
     grid-template-rows: repeat(6, var(--button-size));
-    /* border: 1px solid red; */
+    grid-gap: var(--grid-gap);
     margin: 10% 0 10% 0 ;
 }
 
+/* targets all buttons */
 .btn {
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 1) 0px 2px 4px;
+    box-shadow: var(--box-shadow-button);
+    color: var(--color-history);
+    border: none;
 }
 .btn:hover {
     cursor: pointer;
-    background-color: hsl(41, 73%, 45%);
-    color: white;
-    transition-duration: 180ms;
+    background-color: var(--color-on-hover);
+    color: var(--color-calc-body);
+    transition-duration: 500ms;
+    /* border: 1px solid var(--color-display); */
+}
+.btn:active {
+    transform: translateY(2.5px);
+    transition-duration: 100ms;
+
 }
 
 .display {
+    background-color: var(--color-display);
+    color: var(--color-history);
     display: grid;
     grid-column: span 4;
-    border-radius: 40px;
-    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    border-radius: var(--border-radius-display);
+    box-shadow: var(--box-shadow-display);
     font-size: 1.1rem;
     align-items: center;
     padding: 0 0 0 10%;
-    border: 1px solid hsla(0, 0%, 0%, .15);
+    border: 1px solid var(--color-background);
     margin: -3% 0 3% 0; 
+    
 }
 
 .span1 {
-    border-radius: 15px;
+    border-radius: var(--border-radius-button);
 }
 
 .span2 {
     grid-column: span 2;
-    border-radius: 15px;
+    border-radius: var(--border-radius-button);
 }
 
 .number {
-    /* background-color: hsl(41, 73%, 85%); */
+    background-color: var(--color-buttons-number);
 }
 
 .operator {
-    background-color: darkblue;
+    background-color: var(--color-buttons-operator);
     border-radius: 50%;
-    
-    color: white;
+    color: var(--color-history);
 }
 
 .equals, 
 .clear {
-    background-color: darkblue;
-    color: white;
+    background-color: var(--color-buttons-operator);
+    color: var(--color-history);
     margin: 0 0 5% 0;
 }
-.zero {
-    background-color: darkblue;
-    color: white;
+
+.history-title {
+    text-align: center;
+    color: var(--color-history);
+    border-bottom: 2px solid var(--color-calc-body);
+    padding: 0 0 5% 0;
+    margin: 10% 0 0 0;
 }
 
-
 .history-display {
-    margin: 5% 0 0 0;
     text-align: center;
-    color: hsla(0, 0%, 20%, 1);
-    line-height: .5;
+    color: var(--color-history);
+    line-height: .6;
+    margin: 0 0 0 0;
  }
 
  .pressed {
-     background-color: hsla(210, 50%, 40%, 1);
+     background-color: var(--color-on-pressed);
+     color: var(--color-calc-body);
  }

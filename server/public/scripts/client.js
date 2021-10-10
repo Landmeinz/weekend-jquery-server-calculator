@@ -5,73 +5,56 @@ $(onReady);
 function onReady(){
     console.log('jq connected');
 
-    // post data
-    // get data
-
     // EQUAL this will be the function will POST the data to the server;
     $(`#equalsButton`).on(`click`, postData)
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     $(`.btn`).on(`click`, currentButtonSelection);
+
+    // click listeners to eval the two different types of buttons; numbers & operators;
     $(`.operator`).on(`click`, currentOperatorSelection);
     $(`.operator`).on(`click`, depressedOperatorButton);
+
+    // target all buttons to get feed back on console and to record all click inputs; 
     $(`.btn`).on(`click`, currentNumberInput);
+
+    // only allows one . on the display at the moment; need to bug fix allowing inputTwo to also allow a . ;
     $(`.dot`).on(`click`, displayDot);
-    // $(`.double-span`).on(`click`, currentNumberInput);
-    // $(`#backButton`).on(`click`, deleteLastNumber);
+
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     $(`#clearButton`).on(`click`, clearDisplay)
 
-
-    // CLEAR button set; only needs to clear the client side DOM inputs; 
-    // $(`.operator-button`).on(`click`, toggleSelectedColor)
-
-    // let's get the data when we refresh the page;
+    // let's get any of the past data when we refresh the page;
     getHistoryArray();
 }
 
 
 
-// BUTTONS are found here; I think i might use these later;
-// function plusButton(){
-//     // buttonValue typeof === string
-//     let buttonValue = $(`#plusButton`).val()
-//     // console.log(`clicked on the ${buttonValue} button`);
-// }
-// function minusButton(){
-//     let buttonValue = $(`#minusButton`).val()
-//     // console.log(`clicked on the ${buttonValue} button`);
-//     // $(`#minusButton`).toggleClass("selected");
-// }
-// function multiplyButton(){
-//     let buttonValue = $(`#multiplyButton`).val()
-//     // console.log(`clicked on the ${buttonValue} button`);
-//     // $(`#multiplyButton`).toggleClass("selected");
-// }
-// function divideButton(){
-//     let buttonValue = $(`#divideButton`).val()
-//     // console.log(`clicked on the ${buttonValue} button`);
-//     // $(`#divideButton`).toggleClass("selected");
-// }
-
-
-// BUTTON SELECTION; target all .btn which buttons are we clicking on? 
+// BUTTON SELECTION; target all .btn; console log which buttons are we clicking on; 
 function currentButtonSelection(){
+    // track all button clicks; 
     let currentButton = $(this).text();
+    // log the button we just clicked on;
     console.log(`clicked on:`, currentButton);
-    // $(`#calcDisplay`).text(currentButton);
+
+    // also log the current selected operator; 
     console.log(`selected operator:`, selectedOperator);
     return currentButton; 
 }
 
 
+
+// global variable for the selected operator; 
 let selectedOperator = ``;
 function currentOperatorSelection(){
+
+    // we will set the selectedOperator with the LAST operator button we clicked on; the one with the .pressed class;
     selectedOperator = $(this).text();
     console.log(`selected operator:`, selectedOperator);
 
     return selectedOperator;
 }
+
 
 
 // running list of the numbers and operators pressed; 
@@ -87,6 +70,7 @@ function currentNumberInput(){
 }
 
 
+
 // only allow one . on the display at a time; need to BUG fix allowing for a second . after the operator; so we can run 12.5 * 3.5; 
 function displayDot(){
     if(recordClicks.length === 0){
@@ -97,19 +81,12 @@ function displayDot(){
 }
 
 
+
 function clearDisplay(){
     $(`#calcDisplay`).text(``)
     recordClicks = '';
     $(`.operator`).removeClass(`pressed`)
 }
-
-// delete last input number; i'll come back to this if i have time; 
-// function deleteLastNumber(){
-//     console.log(`log of delete last number`);
-//     console.log(recordClicks);
-//     recordClicks = recordClicks.slice(0, -1);
-// }
-
 
 
 
@@ -154,16 +131,13 @@ function getData(){
 }
 
 
+
+// global variables do send to our server data; 
 let inputOne = '';
 let inputTwo = '';
-
-
 // POST DATA to the server side with this function;
 function postData(){
-    // let's make sure that both input fields are filled before we POST anything; 
-    if($(`#inputOne`).val() === '' || $(`#inputTwo`).val() === '' ){
-        return alert(`provide inputs to calculate an answer`)
-    }
+    
 
     // get index of the selectedOperator so that we can slice recordClicks on both sides; 
     let opIndex = recordClicks.indexOf(selectedOperator);
@@ -183,20 +157,23 @@ function postData(){
             "operator": selectedOperator,
             "inputTwo": inputTwo,
         }
-        // data: 
-        // {
-        //     "inputOne": $(`#inputOne`).val(),
-        //     "operator": selectedOperator,
-        //     "inputTwo": $(`#inputTwo`).val(),
-        // }
     }).then(function(response){
         console.log(`POST SENT`, response);
         getData();
         $(`.operator`).removeClass(`pressed`)
     }).catch(function(){
-        clearInputs();
+        clearDisplay();
         alert(`POST FAILED!`);
     });
+
+     // let's make sure that both input fields are filled before we POST anything; 
+     if(inputOne === '' || inputTwo === '' ){
+        clearDisplay();
+        return alert(`provide inputs to calculate an answer`)
+        } else if(inputOne === ''){
+            inputOne = `${historyArray[0].result}`;
+        }    
+
 }
 
 
@@ -215,32 +192,6 @@ function getHistoryArray(){
 
 
 
-
-
-
-// can't quite figure this out; i only want one button to have the selected background at a time; 
-// function toggleSelectedColor(){
-//     let currentClass = $(this).attr(`class`);
-//     console.log(`--- this is the currentClass:`, currentClass);
-//     switch (currentClass) {
-//         case `operator-button`:
-//             $(this).toggleClass(`selected`);
-//             break;
-//         case `operator-button selected`:
-//             $(this).toggleClass(`not-selected`);
-//             break;
-//         default:
-//             break;
-
-//     $(this).addClass(`.selected`);
-//     let opButton = $(`.operator-button`);
-
-//     if(opButton.hasClass(`.selected`)){
-//         opButton.addClass(`.not-selected`)
-//     }
-// }
-
-
 // RENDER the data to the DOM; 
 function render(historyArray){
     console.log(`RENDER to the DOM current data:`, historyArray);
@@ -252,26 +203,13 @@ function render(historyArray){
     calcDisplay.empty();
 
     for(let item of historyArray){
+
         console.log(`items of historyArray`, item);
         let displayResult = `${historyArray[0].result}`;
         calcDisplay.text(displayResult);
+
         let listItem = ``
         listItem = `<p>${item.inputOne} ${item.operator} ${item.inputTwo} = ${item.result}</p>`;
         historyListDisplay.append(listItem);
     }
 }
-
-{/* <li>dummy html history text</li>
-        <li>4 + 8 = 12</li>
-        <li>6 * 3 = 18</li> */}
-
-// inputOne
-//  plusButton
-//  minusButton
-//  multiplyButton
-//  divideButton
-//  inputTwo
-// calcButton
-// clearButton
-// calcDisplay
-// historyList
