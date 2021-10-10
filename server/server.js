@@ -44,12 +44,13 @@ app.get(`/historyArray`, (req, res) => {
 
 
 function calcData(){
+    // pulling data from our data structure;
     numOne = Number(data.inputOne);
     numTwo = Number(data.inputTwo);
     operator = data.operator;
 
     let result = 0;
-
+    // run the corresponding operation based on the operator selected; 
     switch (operator) {
         case `+`:
             result = numOne+numTwo
