@@ -12,10 +12,10 @@ function onReady(){
     $(`#equalsButton`).on(`click`, postData)
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
-    $(`#clearButton`).on(`click`, clearInputs)
+    $(`#clearButton`).on(`click`, clearDisplay)
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
-    $(`.operator-button`).on(`click`, currentButtonSelection)
+    $(`button`).on(`click`, currentButtonSelection)
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     // $(`.operator-button`).on(`click`, toggleSelectedColor)
@@ -53,10 +53,10 @@ function onReady(){
 let selectedOperator = ``;
 function currentButtonSelection(){
 
-    let currentButton = $(this).val();
+    let currentButton = $(this).text();
     console.log(`clicked on:`, currentButton);
 
-    selectedOperator = $(this).val();
+    selectedOperator = $(this).text();
     console.log(`selected operator`, selectedOperator);
     return selectedOperator;
 }
@@ -120,9 +120,8 @@ function getHistoryArray(){
 
 
 
-function clearInputs(){
-    $(`#inputOne`).val(``)
-    $(`#inputTwo`).val(``)
+function clearDisplay(){
+    $(`#calcDisplay`).text(``)
 }
 
 
