@@ -16,6 +16,8 @@ function onReady(){
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     $(`.operator-button`).on(`click`, currentButtonSelection)
+
+    getHistoryArray();
 }
 
 
@@ -47,6 +49,7 @@ function divideButton(){
 }
 
 
+
 // BUTTON SELECTION; which buttons are we clicking on? 
 let selectedOperator = ``;
 function currentButtonSelection(){
@@ -58,6 +61,7 @@ function currentButtonSelection(){
     console.log(`selected operator`, selectedOperator);
     return selectedOperator;
 }
+
 
 
 // GET DATA from the server; 
@@ -72,6 +76,8 @@ function getData(){
         alert(`failed getData`);
     })
 }
+
+
 
 // POST DATA to the server side with this function;
 function postData(){
@@ -97,6 +103,7 @@ function postData(){
 }
 
 
+
 function getHistoryArray(){
     $.ajax({
         method: `GET`,
@@ -110,6 +117,7 @@ function getHistoryArray(){
 }
 
 
+
 function clearInputs(){
     $(`#inputOne`).val(``)
     $(`#inputTwo`).val(``)
@@ -118,14 +126,18 @@ function clearInputs(){
 
 
 // RENDER the data to the DOM; 
-
 function render(historyArray){
     console.log(`RENDER to the DOM current data:`, historyArray);
     
     let historyListDisplay = $(`#historyListDisplay`);
     historyListDisplay.empty()
 
+    let calcDisplay = $(`#calcDisplay`);
+    calcDisplay.empty();
+
     for(let item of historyArray){
+        let displayResult = `${item.result}`;
+        calcDisplay.text(displayResult);
         let listItem = ``
         listItem = `<li>${item.inputOne} ${item.operator} ${item.inputTwo} = ${item.result}</li>`;
         historyListDisplay.append(listItem);

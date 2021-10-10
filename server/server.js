@@ -31,7 +31,7 @@ app.post(`/data`, (req, res) => {
 
     calcData(data)
 
-    historyArray.push(data);
+    historyArray.push(data); // check me
     console.log(historyArray);
 
     res.sendStatus(201)
