@@ -1,0 +1,9 @@
+this is a todo list as i'm coming to an end for the weekend challenge;
+
+-- fix the double operator input on the display;
+
+-- clear history list needs to empty out the server side data; 
+
+-- how to remember the last result so a user can just input the next operation; 2+2=4 +2=6 +4=10;
+
+-- 
