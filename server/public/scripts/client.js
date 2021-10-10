@@ -15,7 +15,9 @@ function onReady(){
     $(`#clearButton`).on(`click`, clearDisplay)
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
-    $(`button`).on(`click`, currentButtonSelection)
+    $(`.operator-button`).on(`click`, currentButtonSelection);
+    $(`.number-button`).on(`click`, currentNumberInput);
+    $(`.double-span`).on(`click`, currentNumberInput);
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     // $(`.operator-button`).on(`click`, toggleSelectedColor)
@@ -62,6 +64,14 @@ function currentButtonSelection(){
 }
 
 
+function currentNumberInput(){
+    let currentNumber = $(this).text();
+    console.log(`clicked on:`, currentNumber);
+    console.log(`selected operator`, selectedOperator);
+    return currentNumber;
+}
+
+
 
 // GET DATA from the server; 
 function getData(){
@@ -88,16 +98,21 @@ function postData(){
     $.ajax({
         method: `POST`,
         url: `/data`,
-        data: 
-        {
-            "inputOne": $(`#inputOne`).val(),
+        data: {
+            "inputOne": 50,
             "operator": selectedOperator,
-            "inputTwo": $(`#inputTwo`).val(),
+            "inputTwo": 50,
         }
+        // data: 
+        // {
+        //     "inputOne": $(`#inputOne`).val(),
+        //     "operator": selectedOperator,
+        //     "inputTwo": $(`#inputTwo`).val(),
+        // }
     }).then(function(response){
         console.log(`POST SENT`, response);
         getData();
-        clearInputs();
+        // clearDisplay();
     }).catch(function(){
         clearInputs();
         alert(`POST FAILED!`);
@@ -156,7 +171,7 @@ function render(historyArray){
     historyListDisplay.empty()
 
     let calcDisplay = $(`#calcDisplay`);
-    calcDisplay.empty();
+    // calcDisplay.empty();
 
     for(let item of historyArray){
         let displayResult = `${item.result}`;
