@@ -12,12 +12,15 @@ function onReady(){
     $(`#equalsButton`).on(`click`, postData)
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
+    $(`.btn`).on(`click`, currentButtonSelection);
+    $(`.operator`).on(`click`, currentOperatorSelection);
+    $(`.operator`).on(`click`, depressedOperatorButton);
+    $(`.btn`).on(`click`, currentNumberInput);
+    // $(`.double-span`).on(`click`, currentNumberInput);
+    $(`#backButton`).on(`click`, deleteLastNumber);
+    // CLEAR button set; only needs to clear the client side DOM inputs; 
     $(`#clearButton`).on(`click`, clearDisplay)
 
-    // CLEAR button set; only needs to clear the client side DOM inputs; 
-    $(`.operator-button`).on(`click`, currentButtonSelection);
-    $(`.number-button`).on(`click`, currentNumberInput);
-    $(`.double-span`).on(`click`, currentNumberInput);
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
     // $(`.operator-button`).on(`click`, toggleSelectedColor)
@@ -51,24 +54,70 @@ function onReady(){
 // }
 
 
-// BUTTON SELECTION; which buttons are we clicking on? 
-let selectedOperator = ``;
+// BUTTON SELECTION; target all .btn which buttons are we clicking on? 
 function currentButtonSelection(){
-
     let currentButton = $(this).text();
     console.log(`clicked on:`, currentButton);
+    // $(`#calcDisplay`).text(currentButton);
+    console.log(`selected operator:`, selectedOperator);
+    return currentButton; 
+}
 
+
+let selectedOperator = ``;
+function currentOperatorSelection(){
     selectedOperator = $(this).text();
-    console.log(`selected operator`, selectedOperator);
+    console.log(`selected operator:`, selectedOperator);
+
     return selectedOperator;
 }
 
 
+let recordClicks = '';
 function currentNumberInput(){
     let currentNumber = $(this).text();
-    console.log(`clicked on:`, currentNumber);
-    console.log(`selected operator`, selectedOperator);
-    return currentNumber;
+    $(`#calcDisplay`).text(currentNumber)
+
+    recordClicks += currentNumber;
+
+
+    $(`#calcDisplay`).text(recordClicks)
+
+    // console.log(`--- recordClicks:`, recordClicks);
+    // console.log(`clicked on:`, currentNumber);
+    // console.log(`selected operator`, selectedOperator);
+    // return currentNumber;
+}
+
+function deleteLastInput(){
+    // $(`#backButton`).text(currentNumber)
+    recordClicks = text.slice(0, -1);
+}
+
+
+
+// CSS class .pressed applied to the operator that's currently selected; 
+function depressedOperatorButton(){
+    switch (selectedOperator) {
+        case `+`:
+            $(`.operator`).removeClass(`pressed`)
+            $(this).addClass(`pressed`);
+            break;
+        case `-`:
+            $(`.operator`).removeClass(`pressed`)
+            $(this).addClass(`pressed`);
+            break;
+        case `*`:
+            $(`.operator`).removeClass(`pressed`)
+            $(this).addClass(`pressed`);
+            break;
+        case `/`:
+            $(`.operator`).removeClass(`pressed`)
+            $(this).addClass(`pressed`);
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -84,8 +133,12 @@ function getData(){
     }).catch(function(response){
         alert(`failed getData`);
     })
+    recordClicks = '';
 }
 
+
+let inputOne = '';
+let inputTwo = '';
 
 
 // POST DATA to the server side with this function;
@@ -99,9 +152,9 @@ function postData(){
         method: `POST`,
         url: `/data`,
         data: {
-            "inputOne": 50,
+            "inputOne": inputOne,
             "operator": selectedOperator,
-            "inputTwo": 50,
+            "inputTwo": inputTwo,
         }
         // data: 
         // {
@@ -137,7 +190,13 @@ function getHistoryArray(){
 
 function clearDisplay(){
     $(`#calcDisplay`).text(``)
+    recordClicks = '';
 }
+
+function deleteLastNumber(){
+    console.log(`log of delete last number`);
+}
+
 
 
 // can't quite figure this out; i only want one button to have the selected background at a time; 
@@ -171,13 +230,13 @@ function render(historyArray){
     historyListDisplay.empty()
 
     let calcDisplay = $(`#calcDisplay`);
-    // calcDisplay.empty();
+    calcDisplay.empty();
 
     for(let item of historyArray){
         let displayResult = `${item.result}`;
         calcDisplay.text(displayResult);
         let listItem = ``
-        listItem = `<li>${item.inputOne} ${item.operator} ${item.inputTwo} = ${item.result}</li>`;
+        listItem = `<p>${item.inputOne} ${item.operator} ${item.inputTwo} = ${item.result}</p>`;
         historyListDisplay.append(listItem);
     }
 }
