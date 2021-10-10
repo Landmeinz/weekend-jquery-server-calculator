@@ -1,8 +1,9 @@
 /* dark mode */
-/* *{
-    background-color: black;
-    color: white;
-} */
+*{
+    /* background-color: black;
+    color: white; */
+    font-family: sans-serif;
+}
 
 /* .not-selected {
     background-color: white;
@@ -12,6 +13,16 @@
     background-color: darkred;
 } */
 
+
+:root {
+    --button-size: 50px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
 button {
     background-color: white;
 }
@@ -19,10 +30,53 @@ button {
 button:hover {
     cursor: pointer;
     background-color: darkred;
+    color: white;
+    transition-duration: 180ms;
+}
+
+body {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-body{
+    width: 260px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid blue; */
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .button-container {
     display: grid;
-    
+    grid-gap: 5px;
+    grid-template-columns: repeat(4, var(--button-size));
+    grid-template-rows: repeat(6, var(--button-size));
+    /* border: 1px solid red; */
+    margin: 12% 0 12% 0 ;
 }
 
+.display {
+    display: grid;
+    justify-content: center;
+    justify-content: right;
+    grid-column: span 3;
+    border-radius: 40px;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    font-size: 1rem;
+}
+
+.double-span {
+    grid-column: span 2;
+    border-radius: 40px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.number-button,
+.operator-button {
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
