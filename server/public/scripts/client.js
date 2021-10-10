@@ -15,7 +15,7 @@ function onReady(){
     $(`#clearButton`).on(`click`, clearInputs)
 
     // CLEAR button set; only needs to clear the client side DOM inputs; 
-    $(`button`).on(`click`, currentButtonSelection)
+    $(`.operator-button`).on(`click`, currentButtonSelection)
 }
 
 
@@ -47,12 +47,14 @@ function divideButton(){
 }
 
 
-
+// BUTTON SELECTION; which buttons are we clicking on? 
 let selectedOperator = ``;
 function currentButtonSelection(){
-    let currentButton = ``;
-    console.log(currentButton = `clicked on:`, $(this).val());
-    selectedOperator = $(`.operator-button`).val();
+
+    let currentButton = $(this).val();
+    console.log(`clicked on:`, currentButton);
+
+    selectedOperator = $(this).val();
     console.log(`selected operator`, selectedOperator);
     return selectedOperator;
 }
@@ -74,26 +76,23 @@ function getData(){
 // POST DATA to the server side with this function;
 function postData(){
     // post input data to the server; 
-    let inputOne = $(`#inputOne`).val();
-    let inputTwo = $(`#inputTwo`).val();
-
 
     $.ajax({
         method: `POST`,
         url: `/data`,
         data: 
         {
-            "inputOne": inputOne;
+            "inputOne": $(`#inputOne`).val(),
             "operator": selectedOperator,
-            "inputTwo": inputTwo,
-            "result": ``
+            "inputTwo": $(`#inputTwo`).val(),
         }
     }).then(function(response){
         console.log(`POST SENT`, response);
         getData();
         clearInputs();
     }).catch(function(){
-        alert(`POST FAILED!`, response);
+        clearInputs();
+        alert(`POST FAILED!`);
     });
 }
 

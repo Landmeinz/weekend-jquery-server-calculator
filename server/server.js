@@ -29,6 +29,8 @@ app.post(`/data`, (req, res) => {
     console.log(`this the data req.body`, req.body);
     data = req.body;
 
+    calcData(data)
+
     historyArray.push(data);
     console.log(historyArray);
 
@@ -39,6 +41,38 @@ app.post(`/data`, (req, res) => {
 app.get(`/historyArray`, (req, res) => {
     res.send(historyArray);
 })
+
+
+function calcData(){
+    numOne = Number(data.inputOne);
+    numTwo = Number(data.inputTwo);
+    operator = data.operator;
+
+    let result = 0;
+
+    switch (operator) {
+        case `+`:
+            result = numOne+numTwo
+            break;
+        case `-`:
+            result = numOne-numTwo
+            break;
+        case `*`:
+            result = numOne*numTwo
+            break;
+        case `/`:
+            result = numOne/numTwo
+            break;
+        default:
+            alert(`there seems to be an error`)
+            break;
+    }
+    console.log(`--- this is the result: ${result}`);
+    // adding new key:value pair to the data structure; 
+    data["result"] = result; 
+    return result;
+}
+
 
 
 app.listen(PORT, () => {
