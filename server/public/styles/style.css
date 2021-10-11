@@ -60,6 +60,8 @@ body {
     box-shadow: var(--box-shadow-button);
     color: var(--color-history);
     border: none;
+    font-size: 1.15rem;
+    font-weight: 600;
 }
 .btn:hover {
     cursor: pointer;

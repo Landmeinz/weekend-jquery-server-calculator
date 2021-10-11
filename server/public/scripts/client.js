@@ -57,7 +57,16 @@ function currentOperatorSelection(){
     console.log(`selected operator:`, selectedOperator);
 
     // will return the last operator selected; 
-    return selectedOperator;
+    return constrainOperator(selectedOperator); 
+}
+
+
+
+// only allow one operator at a time;
+function constrainOperator(){
+    if(selectedOperator.includes(`${selectedOperator} `)){
+        return selectedOperator = selectedOperator;
+    }
 }
 
 
@@ -135,7 +144,6 @@ function getData(){
     }).catch(function(response){
         alert(`failed getData`);
     })
-    // recordClicks = '';
 }
 
 
