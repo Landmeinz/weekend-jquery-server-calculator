@@ -4,6 +4,4 @@
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
-
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+<img width="360" alt="Screen Shot 2021-12-20 at 1 22 38 PM" src="https://user-images.githubusercontent.com/85810386/147122780-699dc8a5-a024-47fe-84b6-fe11802cd3a4.png">
